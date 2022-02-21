@@ -202,7 +202,7 @@ async function isFavorite(crypto) {
 // 	}
 // }
 
-// ############# Update Cryptos Table In DataBase ############################
+// ############# Update Cryptos Table In DataBase ##########################
 
 async function updateDatabase() {
 	const btcData = await getPriceBTC();

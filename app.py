@@ -217,8 +217,6 @@ def details_page(symbol,price, percent, mc):
 
 
 
-
-
 # @app.route('/api/favorites/<int:id>', methods=["PATCH"])
 # def update_favorite(id):
 #     favorite = Favorites.query.get_or_404(id)
