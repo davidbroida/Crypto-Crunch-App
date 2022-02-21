@@ -1,7 +1,7 @@
 /* ====================== General */
 
 body {
-	background-color: #ffffff;
+	background-color: #bee5ff;
 }
 
 body.error-404 {
@@ -47,7 +47,7 @@ td {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 	margin-bottom: 1rem;
 	position: relative;
-	z-index: 9999;
+	/* z-index: 9999; */
 }
 
 .navbar a {
@@ -106,7 +106,7 @@ nav form.navbar-form {
 	right: 9px;
 	top: 2px;
 	bottom: 4px;
-	z-index: 1;
+	/* z-index: 1; */
 	padding: 0;
 	color: #66757f;
 }
@@ -194,7 +194,7 @@ nav + .container {
 	height: 200px;
 	border: 5px solid #fff;
 	margin-top: -120px;
-	z-index: 1;
+	/* z-index: 1; */
 	position: relative;
 	box-shadow: 0 1px 1px rgba(136, 153, 166, 0.15);
 }
@@ -285,12 +285,12 @@ nav + .container {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	z-index: 1;
+	/* z-index: 1; */
 }
 
 #messages .list-group-item a:not(.message-link) {
 	position: relative;
-	z-index: 2;
+	/* z-index: 2; */
 }
 
 #messages .list-group-item {
@@ -365,7 +365,7 @@ nav + .container {
 	width: 70px;
 	margin-top: -35px;
 	position: relative;
-	z-index: 1;
+	/* z-index: 1; */
 }
 
 .card-link {
@@ -405,44 +405,24 @@ p.card-bio {
 
 /* ============================ Signed out home */
 
-.home-hero {
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	align-items: center;
-	position: absolute;
-	top: 0;
-	width: 100vw;
-	left: 0;
-	z-index: -1;
-	/* background-image: url("/static/images/signed-out-home.jpg"); */
-	background-size: cover;
-	background-position: center center;
-	color: rgb(12, 12, 12);
-	text-align: center;
-	padding: 1rem;
-	text-shadow: 0 0 8px #66757f;
-}
-
 .home-hero .btn {
 	text-shadow: none;
 	position: relative;
-	z-index: 1;
+	z-index: 9999;
 	width: 150px;
 }
 
-.home-hero h1 {
+.main-table h1 {
 	margin-top: 10px;
 	/* margin-bottom: 4rem; */
 }
 
-.home-hero h2 {
+.main-table h2 {
 	margin-top: 20px;
 	/* margin-bottom: 4rem; */
 }
 
-.home-hero:before {
+/* .home-hero:before {
 	content: "";
 	position: absolute;
 	top: 0;
@@ -450,11 +430,11 @@ p.card-bio {
 	right: 0;
 	bottom: 0;
 	background: rgba(255, 255, 255, 0.3);
-}
+} */
 
 .home-hero > img {
 	width: 200px;
-	margin-bottom: 50px;
+	margin-bottom: 5px;
 }
 
 /* ============================== Signed in Home */
@@ -543,7 +523,7 @@ p.card-bio {
 	position: absolute;
 	top: 4px;
 	right: 4px;
-	z-index: 1;
+	/* z-index: 1; */
 }
 
 .single-message {
@@ -575,4 +555,137 @@ p.card-bio {
 
 .input-id {
 	margin-left: 10px;
+}
+
+.fas {
+	color: rgb(255, 217, 0);
+}
+
+.main-header {
+	/* align-items: center; */
+	text-align: center;
+}
+
+.main-table {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	width: 100vw;
+	left: 0;
+
+	background-size: cover;
+	background-position: center center;
+	/* color: rgb(12, 12, 12); */
+	text-align: center;
+	padding: 1rem;
+	text-shadow: 0 0 8px #66757f;
+	text-align: center;
+	margin-top: 120px;
+}
+
+.favorites-table {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	width: 100vw;
+	left: 0;
+
+	background-size: cover;
+	background-position: center center;
+	/* color: rgb(12, 12, 12); */
+	text-align: center;
+	padding: 1rem;
+	text-shadow: 0 0 8px #66757f;
+	text-align: center;
+	margin-top: 50px;
+}
+
+/* .news-container {
+	margin-bottom: 20px;
+} */
+
+#news-section {
+	margin-top: 10px;
+	align-content: center;
+	align-items: center;
+}
+
+.news-image {
+	width: 120px;
+	height: 120px;
+}
+
+.news-block {
+	background-color: white;
+	padding: 0 20px 0 20px;
+	width: 690px;
+	align-items: center;
+}
+
+.story-title {
+	color: black;
+}
+
+.main-logo {
+	width: 300px;
+	margin-top: 10px;
+}
+
+.clickable-field {
+	cursor: pointer;
+}
+#btc-chart {
+	margin-top: 575px;
+	background-color: rgba(255, 255, 255, 0.822);
+	width: 80vw;
+}
+
+/* .btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+	background-color: #251935 !important;
+} */
+
+#details-chart {
+	width: 95vw;
+	background-color: rgba(255, 255, 255, 0.822);
+}
+
+.float-container {
+	border: 3px solid #6dc0f3;
+	background-color: #6dc0f3;
+	padding: 20px;
+	width: 95vw;
+	align-items: center;
+	text-align: center;
+}
+
+.float-child {
+	width: 32%;
+	float: left;
+	padding: 15px;
+	margin: 4px;
+	border: 2px solid #6dc0f3;
+	border-radius: 5px;
+	align-items: center;
+	text-align: center;
+	background-color: white;
+}
+
+/* .live-green {
+	color: green;
+} */
+
+.chart-title {
+	text-align: center;
+	align-items: center;
 }

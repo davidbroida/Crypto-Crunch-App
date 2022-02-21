@@ -1,157 +1,230 @@
+const BASE_URL = 'http://localhost:5000/api';
+
+const $star = $('fas fa-star');
+
 async function getPriceBTC() {
 	let response = await axios.get(
 		'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,ADA,SOL,XRP,LUNA,DOT,DOGE,AVAX&tsyms=USD'
 	);
-
-	// console.log(response);
 	return response;
 }
 
-async function showHTML() {
+async function showHomeHTML() {
 	const btcData = await getPriceBTC();
-	// console.log(btcData);
+	const cryptos = Object.entries(btcData.data.DISPLAY);
+	// console.log(cryptos);
 
 	const list = document.getElementById('price-list');
 	const listTop = document.createElement('tr');
 	listTop.setAttribute('id', 'top-row');
 
-	for (let y = 0; y < 10; y++) {
+	cryptos.forEach((crypto) => {
 		const row = document.createElement('tr');
+		row.setAttribute('id', crypto[0]);
 
 		for (let x = 0; x < 5; x++) {
 			const cell = document.createElement('td');
-			cell.setAttribute('id', `${y}-${x}`);
+
+			if (x === 0) {
+				cell.addEventListener('click', () => viewDetails(crypto));
+				console.log(crypto);
+				cell.classList.add('clickable-field');
+				cell.innerText = `$${crypto[0]}`;
+			}
+			if (x === 1) {
+				cell.innerText = crypto[1].USD.PRICE;
+				cell.addEventListener('click', () => viewDetails(crypto));
+				cell.classList.add('clickable-field');
+			}
+			if (x === 2) {
+				cell.innerText = crypto[1].USD.CHANGEPCTDAY;
+				cell.addEventListener('click', () => viewDetails(crypto));
+				cell.classList.add('clickable-field');
+			}
+			if (x === 3) {
+				cell.addEventListener('click', () => viewDetails(crypto));
+				cell.classList.add('clickable-field');
+				cell.innerText = crypto[1].USD.MKTCAP;
+			}
 			if (x === 4) {
-				cell.classList.add('far', 'fa-star');
-				cell.addEventListener('click', toggleFavorite);
+				cell.classList.add('far', 'fa-star', 'clickable-field');
+				cell.addEventListener('click', () => toggleFavorite(crypto, cell));
 			}
 			row.append(cell);
 		}
 		list.append(row);
-	}
-
-	function insertData() {
-		a0 = document.getElementById('0-0');
-		a1 = document.getElementById('0-1');
-		a2 = document.getElementById('0-2');
-		a3 = document.getElementById('0-3');
-		a4 = document.getElementById('0-4');
-		a0.innerText = `${btcData.data.DISPLAY.BTC.USD.FROMSYMBOL} - Bitcoin`;
-		a1.innerText = btcData.data.DISPLAY.BTC.USD.PRICE;
-		a2.innerText = btcData.data.DISPLAY.BTC.USD.CHANGEPCTDAY;
-		a3.innerText = btcData.data.DISPLAY.BTC.USD.MKTCAP;
-
-		b0 = document.getElementById('1-0');
-		b1 = document.getElementById('1-1');
-		b2 = document.getElementById('1-2');
-		b3 = document.getElementById('1-3');
-		b4 = document.getElementById('1-4');
-		b0.innerText = `${btcData.data.DISPLAY.ETH.USD.FROMSYMBOL} - Ethereum`;
-		b1.innerText = btcData.data.DISPLAY.ETH.USD.PRICE;
-		b2.innerText = btcData.data.DISPLAY.ETH.USD.CHANGEPCTDAY;
-		b3.innerText = btcData.data.DISPLAY.ETH.USD.MKTCAP;
-
-		c0 = document.getElementById('2-0');
-		c1 = document.getElementById('2-1');
-		c2 = document.getElementById('2-2');
-		c3 = document.getElementById('2-3');
-		c4 = document.getElementById('2-4');
-		c0.innerText = `${btcData.data.DISPLAY.BNB.USD.FROMSYMBOL} - Binance Coin`;
-		c1.innerText = btcData.data.DISPLAY.BNB.USD.PRICE;
-		c2.innerText = btcData.data.DISPLAY.BNB.USD.CHANGEPCTDAY;
-		c3.innerText = btcData.data.DISPLAY.BNB.USD.MKTCAP;
-
-		d0 = document.getElementById('3-0');
-		d1 = document.getElementById('3-1');
-		d2 = document.getElementById('3-2');
-		d3 = document.getElementById('3-3');
-		d4 = document.getElementById('3-4');
-		d0.innerText = `${btcData.data.DISPLAY.ADA.USD.FROMSYMBOL} - Cardano`;
-		d1.innerText = btcData.data.DISPLAY.ADA.USD.PRICE;
-		d2.innerText = btcData.data.DISPLAY.ADA.USD.CHANGEPCTDAY;
-		d3.innerText = btcData.data.DISPLAY.ADA.USD.MKTCAP;
-
-		e0 = document.getElementById('4-0');
-		e1 = document.getElementById('4-1');
-		e2 = document.getElementById('4-2');
-		e3 = document.getElementById('4-3');
-		e4 = document.getElementById('4-4');
-		e0.innerText = `${btcData.data.DISPLAY.SOL.USD.FROMSYMBOL} - Solana`;
-		e1.innerText = btcData.data.DISPLAY.SOL.USD.PRICE;
-		e2.innerText = btcData.data.DISPLAY.SOL.USD.CHANGEPCTDAY;
-		e3.innerText = btcData.data.DISPLAY.SOL.USD.MKTCAP;
-
-		f0 = document.getElementById('5-0');
-		f1 = document.getElementById('5-1');
-		f2 = document.getElementById('5-2');
-		f3 = document.getElementById('5-3');
-		f4 = document.getElementById('5-4');
-		f0.innerText = `${btcData.data.DISPLAY.XRP.USD.FROMSYMBOL} - XRP`;
-		f1.innerText = btcData.data.DISPLAY.XRP.USD.PRICE;
-		f2.innerText = btcData.data.DISPLAY.XRP.USD.CHANGEPCTDAY;
-		f3.innerText = btcData.data.DISPLAY.XRP.USD.MKTCAP;
-
-		g0 = document.getElementById('6-0');
-		g1 = document.getElementById('6-1');
-		g2 = document.getElementById('6-2');
-		g3 = document.getElementById('6-3');
-		g4 = document.getElementById('6-4');
-		g0.innerText = `${btcData.data.DISPLAY.LUNA.USD.FROMSYMBOL} - LUNA`;
-		g1.innerText = btcData.data.DISPLAY.LUNA.USD.PRICE;
-		g2.innerText = btcData.data.DISPLAY.LUNA.USD.CHANGEPCTDAY;
-		g3.innerText = btcData.data.DISPLAY.LUNA.USD.MKTCAP;
-
-		h0 = document.getElementById('7-0');
-		h1 = document.getElementById('7-1');
-		h2 = document.getElementById('7-2');
-		h3 = document.getElementById('7-3');
-		h4 = document.getElementById('7-4');
-		h0.innerText = `${btcData.data.DISPLAY.DOT.USD.FROMSYMBOL} - Polkadot`;
-		h1.innerText = btcData.data.DISPLAY.DOT.USD.PRICE;
-		h2.innerText = btcData.data.DISPLAY.DOT.USD.CHANGEPCTDAY;
-		h3.innerText = btcData.data.DISPLAY.DOT.USD.MKTCAP;
-
-		i0 = document.getElementById('8-0');
-		i1 = document.getElementById('8-1');
-		i2 = document.getElementById('8-2');
-		i3 = document.getElementById('8-3');
-		i4 = document.getElementById('8-4');
-		i0.innerText = `${btcData.data.DISPLAY.DOGE.USD.FROMSYMBOL} - Dogecoin`;
-		i1.innerText = btcData.data.DISPLAY.DOGE.USD.PRICE;
-		i2.innerText = btcData.data.DISPLAY.DOGE.USD.CHANGEPCTDAY;
-		i3.innerText = btcData.data.DISPLAY.DOGE.USD.MKTCAP;
-
-		j0 = document.getElementById('9-0');
-		j1 = document.getElementById('9-1');
-		j2 = document.getElementById('9-2');
-		j3 = document.getElementById('9-3');
-		j4 = document.getElementById('9-4');
-		j0.innerText = `${btcData.data.DISPLAY.AVAX.USD.FROMSYMBOL} - Avalanche`;
-		j1.innerText = btcData.data.DISPLAY.AVAX.USD.PRICE;
-		j2.innerText = btcData.data.DISPLAY.AVAX.USD.CHANGEPCTDAY;
-		j3.innerText = btcData.data.DISPLAY.AVAX.USD.MKTCAP;
-	}
-	insertData();
+	});
 }
-showHTML();
+showHomeHTML();
 
-function toggleFavorite(evt) {
-	const $target = $(evt.target);
-	const $closestTr = $target.closest('tr');
+// function favoritesToDetails(id){
+
+// }
+
+function viewDetails(crypto) {
+	// window.location.href = `/info/${crypto[0]}/`;
+
+	window.location.href = `/info/${crypto[0]}/
+								${crypto[1].USD.PRICE}/
+								${crypto[1].USD.CHANGEPCTDAY}/
+								${crypto[1].USD.MKTCAP}
+								`;
+	// console.log(crypto[1].USD);
+	getInfo(crypto[0]);
+}
+
+// far fa-star = blank
+// fas fa-star = yellow
+// let favorited = localStorage.getItem("favorited")
+
+async function toggleFavorite(crypto, targetCell) {
+	const $target = $(targetCell);
 
 	if ($target.hasClass('far')) {
 		$target.closest('td').toggleClass('far fas');
-		$closestTr.addClass('favorited');
-		const rowData = document.getElementsByClassName('favorited');
-		console.log(rowData);
+		// localStorage.setItem('favorited', 'true');
+
+		addFavorite(crypto[0]);
 	} else if ($target.hasClass('fas')) {
 		$target.closest('td').toggleClass('fas far');
-		$closestTr.removeClass('favorited');
+		// localStorage.setItem('favorited', null);
+
+		removeFavorite(crypto[1].USD.FROMSYMBOL);
 	}
-	// addFavorite();
 }
 
-// function addFavorite(evt) {
+async function addFavorite(crypto) {
+	let symbol = crypto;
+	let user_id = 1;
 
-// 	console.log(favoriteCoin);
+	let res = await axios.get(`${BASE_URL}/cryptos`);
+	let array = res.data.cryptos;
+
+	for (let x = 0; x < array.length; x++) {
+		if (array[x].crypto_name === symbol) {
+			console.log('ADDED TO FAVORITES!');
+			postFavorite(array[x].id);
+		}
+	}
+	window.location.href = `/users/${user_id}`;
+}
+
+async function getCryptos(correct_id) {
+	let id = correct_id;
+	console.log(id);
+
+	const res = await axios.get('http://localhost:5000/api/cryptos');
+	let array = res.data.cryptos;
+	console.log(id);
+
+	for (let x = 0; x < array.length; x++) {
+		// console.log(array[x].id);
+		// console.log(array[x].crypto_name);
+		if (array[x].id == id) {
+			let name = array[x].crypto_name;
+			let mc = array[x].marketcap;
+			let percent = array[x].percent;
+			let price = array[x].price;
+			console.log(name, mc, percent, price);
+			window.location.href = `/info/${name}/
+								${price}/
+								${percent}/
+								${mc}
+								`;
+		}
+	}
+}
+
+async function removeFavorite(crypto) {
+	let symbol = crypto;
+	user_id = 1;
+
+	let res = await axios.get(`${BASE_URL}/cryptos`);
+	let array = res.data.cryptos;
+
+	for (let x = 0; x < array.length; x++) {
+		if (array[x].crypto_name === symbol) {
+			deleteFavorite(array[x].id);
+		}
+	}
+}
+
+async function postFavorite(id) {
+	const crypto_id = id;
+	let user_id = 1;
+
+	const newFavoriteResponse = await axios.post(`${BASE_URL}/favorites/${user_id}`, {
+		user_id,
+		crypto_id
+	});
+	return newFavoriteResponse;
+}
+
+async function deleteFavorite(id) {
+	const crypto_id = id;
+	let user_id = 1;
+
+	const deleteFavoriteResponse = await axios.delete(`${BASE_URL}/favorites/${crypto_id}`, {
+		user_id,
+		crypto_id
+	});
+	console.log('DELETED FROM FAVORITES!');
+	window.location.href = `/users/${user_id}`;
+	return deleteFavoriteResponse;
+}
+
+// ####### CALL THE DB TO SEE IF THE COIN CLICKED IS A FAVORITE ##############
+
+async function isFavorite(crypto) {
+	let symbol = crypto;
+	// console.log(symbol);
+
+	let cryptosRes = await axios.get(`${BASE_URL}/cryptos`);
+	let array = cryptosRes.data.cryptos;
+	// console.log(array);
+
+	for (x = 0; x < array.length; x++) {
+		if (array[x].crypto_name === symbol) {
+			// console.log(array[x].id);
+			checkFavorite(array[x].id);
+		}
+	}
+}
+
+// async function checkFavorite(id) {
+// 	const res = await axios.get(`${BASE_URL}/favorites`);
+// 	let array = res.data.favorites;
+
+// 	for (let x = 0; x < array.length; x++) {
+// 		if (array[x].crypto_id === id) {
+// 			return true;
+// 		} else return false;
+// 	}
 // }
+
+// ############# Update Cryptos Table In DataBase ############################
+
+async function updateDatabase() {
+	const btcData = await getPriceBTC();
+	const cryptos = Object.entries(btcData.data.DISPLAY);
+
+	cryptos.forEach((crypto) => {
+		for (let x = 0; x < 5; x++) {
+			if (x === 0) symbol = crypto[0];
+			if (x === 1) price = crypto[1].USD.PRICE;
+			if (x === 2) percent = crypto[1].USD.CHANGEPCTDAY;
+			if (x === 3) marketcap = crypto[1].USD.MKTCAP;
+		}
+		addToDatabase(symbol, price, percent, marketcap);
+	});
+}
+
+async function addToDatabase(crypto_name, price, percent, marketcap) {
+	const databaseUpdate = await axios.post(`${BASE_URL}/cryptos`, {
+		crypto_name,
+		price,
+		percent,
+		marketcap
+	});
+	return databaseUpdate;
+}
