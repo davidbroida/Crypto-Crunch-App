@@ -1,0 +1,90 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="main-table">
+    <!-- <h1>Welcome</h1> -->
+    <img class="main-logo" src="/static/images/CryptoCrunchLogo4png.png" alt="">
+
+    <br>
+ 
+    <h3><b><span style="color: rgb(13, 139, 13)">Live </span> Data</b></h3>
+    <p>Last Update: Just Now</p>
+    <br>
+    <div id="details-chart">
+        <br>
+        <h4>${{symbol}} Price Chart</h4>
+        <canvas id="myChart"></canvas>
+      </div>
+      <br>
+
+    <div class="float-container">
+
+        <div class="float-child">
+            <div class="child-one"><b>Price: {{price}}</b></div>
+        </div>
+
+        <div class="float-child">
+            <div class="child-two"><b>24 Hour Change: {{percent}}%</b></div>
+        </div>
+
+        <div class="float-child">
+            <div class="child-three"><b>Market Cap: {{mc}}</b></div>
+        </div>
+
+    </div>
+
+  
+
+    <div id = "details-section"></div>
+
+    <script>
+
+    getData();
+
+    async function getData(){
+      const response = await fetch (`https://min-api.cryptocompare.com/data/v2/histoday?fsym={{symbol}}&tsym=USD&limit=30`)
+      console.log(response);
+      const data = await response.json();
+      console.log(data);
+    
+      length = data.Data.Data.length;
+      console.log(length);
+    
+      labels = [];
+      values = [];
+    
+      for( days = 30; days >= 0; days--){
+        labels.push(days)
+      }
+    
+      for( i = 0; i < length; i++){
+        // labels.push(data.Data.Data[i].time);
+        values.push(data.Data.Data[i].close)
+      }
+    
+      new Chart(document.getElementById("myChart"), {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Price in $USD',
+              backgroundColor:'rgb(3, 78, 252)',
+              borderColor:'rgb(3, 78, 252)',
+              data: values
+            }
+          ]
+        },
+        options: {
+          legend: { display: false},
+          title: {
+            display: true,
+            text: 'Bitcoin 6 Month Price Chart'
+          }
+        }
+      });
+    }
+    
+    
+</script>
+{% endblock %}
+

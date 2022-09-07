@@ -1,0 +1,156 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+    <div class="main-header">
+    <img class="main-logo" src="/static/images/CryptoCrunchLogo4png.png" alt="">
+
+    <br>
+    <p>Cryptocurrency App</p>
+  </div>
+  
+      <br>
+     
+      
+      
+    <div class="main-table">
+    <div>
+      <table class="table table-dark table-striped thead-dark table-hover">
+        <thead>
+          <tr id="header-table">
+            <th>Name</th>
+            <th>Price</th>
+            <th>24hr %</th>
+            <th>Market Cap</th>
+            <th>Favorite</th>
+          </tr>
+        </thead>
+        <tbody id="price-list" ></tbody>
+      </table>
+    </div>  
+</div>
+
+<div id="btc-chart">
+  <h3 class="chart-title"><span style="color:green">  Live</span> Bitcoin Price Chart</h3>
+  <canvas id="myBitcoinChart"></canvas>
+</div>
+
+<div class="news-container">
+  <br>
+  <h3>  Latest News</h3>
+  <div id="news-section"></div>
+</div>
+
+
+<script>
+  window.addEventListener('load', (event) => {
+  console.log('page is fully loaded');
+  updateDatabase();
+
+});
+</script>
+
+<!-- <script>
+
+getData();
+
+async function getData(){
+  const response = await fetch ('https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=182')
+  console.log(response);
+  const data = await response.json();
+  console.log(data);
+
+  length = data.Data.Data.length;
+  console.log(length);
+
+  labels = [];
+  values = [];
+
+  for( days = 182; days >= 0; days--){
+    labels.push(days)
+  }
+
+  for( i = 0; i < length; i++){
+    // console.log(data.Data.Data[i].time);
+    // labels.push(data.Data.Data[i].time);
+    values.push(data.Data.Data[i].close)
+  }
+
+  new Chart(document.getElementById("myBitcoinChart"), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Bitcoin Price in $USD',
+          backgroundColor:'rgb(252, 186, 3)',
+          borderColor:'rgb(252, 186, 3)',
+          data: values
+        }
+      ]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        text: 'Bitcoin Price Chart 2022'
+      }
+    }
+  });
+}
+
+
+
+</script> -->
+
+
+
+
+
+
+<script>
+
+getData();
+
+async function getData(){
+  const response = await fetch ('https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=99')
+  console.log(response);
+  const data = await response.json();
+
+  let arr = data.Data.Data;
+  let seriesData = []
+
+  for (let x = 0; x < arr.length; x++){
+    seriesData.push([arr[x].time, arr[x].open, arr[x].high, arr[x].low, arr[x].close])
+  }
+
+console.log(seriesData)
+
+var options = {
+          series: [{
+          
+          data: seriesData
+          
+          }],
+          chart: {
+          type: 'candlestick',
+          height: 350
+        },
+        title: {
+          text: 'CandleStick Chart',
+          align: 'left'
+        },
+        xaxis: {
+          type: 'datetime',
+        },
+        };
+}
+
+    
+
+var chart = new ApexCharts(document.getElementById("myBitcoinChart"), options);
+        chart.render();
+
+</script>
+
+{% endblock %}
+
