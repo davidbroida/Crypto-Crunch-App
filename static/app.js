@@ -11,8 +11,34 @@ async function getPriceBTC() {
 
 async function showHomeHTML() {
 	const btcData = await getPriceBTC();
+	const favorites = await axios.get(`${BASE_URL}/favorites`);
+	const dbCryptos = await axios.get(`${BASE_URL}/cryptos`);
 	const cryptos = Object.entries(btcData.data.DISPLAY);
-	// console.log(cryptos);
+	let cryptoIds = dbCryptos.data.cryptos;
+	let favoritesArray = favorites.data.favorites;
+
+	let favoriteIds = favoritesArray.map((val) => {
+		return val.crypto_id;
+	})
+
+	let favoriteList = []
+	for (let i = 0; i < favoriteIds.length; i++) {
+		for (let j = 0; j < cryptoIds.length; j++) {
+			if (favoriteIds[i] === cryptoIds[j].id) favoriteList.push(cryptoIds[j].crypto_name);
+		}
+	}
+
+	// function getId(symbol) {
+	// 	return cryptoIds.filter((val) => {
+	// 		val.crypto_name === symbol;
+	// 		return val.id
+	// 	})
+	// }
+
+	console.log('answer:', favoriteList);
+	console.log("favoriteIds:", favoriteIds);
+	console.log("cryptoIds:", cryptoIds);
+
 
 	const list = document.getElementById('price-list');
 	const listTop = document.createElement('tr');
@@ -47,8 +73,14 @@ async function showHomeHTML() {
 				cell.innerText = crypto[1].USD.MKTCAP;
 			}
 			if (x === 4) {
-				cell.classList.add('far', 'fa-star', 'clickable-field');
-				cell.addEventListener('click', () => toggleFavorite(crypto, cell));
+				if (favoriteList.includes(crypto[0])) {
+					cell.classList.add('fas', 'fa-star', 'clickable-field');
+					cell.addEventListener('click', () => toggleFavorite(crypto, cell));
+				} else {
+					cell.classList.add('far', 'fa-star', 'clickable-field');
+					cell.addEventListener('click', () => toggleFavorite(crypto, cell));
+				}
+
 			}
 			row.append(cell);
 		}
@@ -78,24 +110,29 @@ function viewDetails(crypto) {
 // let favorited = localStorage.getItem("favorited")
 
 async function toggleFavorite(crypto, targetCell) {
+	const dbCryptos = await axios.get(`${BASE_URL}/cryptos`);
+	let cryptoIds = dbCryptos.data.cryptos;
+
 	const $target = $(targetCell);
 
 	if ($target.hasClass('far')) {
 		$target.closest('td').toggleClass('far fas');
-		// localStorage.setItem('favorited', 'true');
 
 		addFavorite(crypto[0]);
 	} else if ($target.hasClass('fas')) {
 		$target.closest('td').toggleClass('fas far');
-		// localStorage.setItem('favorited', null);
+		let symbol = $target.closest('tr')[0].id
+		let result = [];
 
-		removeFavorite(crypto[1].USD.FROMSYMBOL);
+		cryptoIds.forEach((val) => {
+			if (val.crypto_name === symbol) result.push(val.id);
+		})
+		deleteFavorite(result[0]);
 	}
 }
 
 async function addFavorite(crypto) {
 	let symbol = crypto;
-	let user_id = 1;
 
 	let res = await axios.get(`${BASE_URL}/cryptos`);
 	let array = res.data.cryptos;
@@ -106,7 +143,8 @@ async function addFavorite(crypto) {
 			postFavorite(array[x].id);
 		}
 	}
-	window.location.href = `/users/${user_id}`;
+	// window.location.href = `/users/${user_id}`;
+	window.location.href = `/`;
 }
 
 async function getCryptos(correct_id) {
@@ -137,13 +175,13 @@ async function getCryptos(correct_id) {
 
 async function removeFavorite(crypto) {
 	let symbol = crypto;
-	user_id = 1;
 
 	let res = await axios.get(`${BASE_URL}/cryptos`);
 	let array = res.data.cryptos;
 
 	for (let x = 0; x < array.length; x++) {
 		if (array[x].crypto_name === symbol) {
+			console.log('should delete:', symbol)
 			deleteFavorite(array[x].id);
 		}
 	}
@@ -151,7 +189,6 @@ async function removeFavorite(crypto) {
 
 async function postFavorite(id) {
 	const crypto_id = id;
-	let user_id = 1;
 
 	const newFavoriteResponse = await axios.post(`${BASE_URL}/favorites/${user_id}`, {
 		user_id,
@@ -162,14 +199,14 @@ async function postFavorite(id) {
 
 async function deleteFavorite(id) {
 	const crypto_id = id;
-	let user_id = 1;
 
 	const deleteFavoriteResponse = await axios.delete(`${BASE_URL}/favorites/${crypto_id}`, {
 		user_id,
 		crypto_id
 	});
 	console.log('DELETED FROM FAVORITES!');
-	window.location.href = `/users/${user_id}`;
+	// window.location.href = `/users/${user_id}`;
+	location.reload();
 	return deleteFavoriteResponse;
 }
 

@@ -1,82 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Crunch</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Crunch</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://unpkg.com/jquery"></script>
-    <!-- <script src="https://unpkg.com/popper"></script> -->
-    <script src="https://unpkg.com/bootstrap"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://unpkg.com/jquery"></script>
+  <!-- <script src="https://unpkg.com/popper"></script> -->
+  <script src="https://unpkg.com/bootstrap"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
 
-    <script src="/static/app.js"></script>
-    <script src="/static/news_app.js"></script>
-    <!-- <script src="/static/refactored.js"></script> -->
-    <!-- <script src="/static/roman_update.js"></script> -->
+  <script src="/static/app.js"></script>
+  <script src="/static/news_app.js"></script>
+  <!-- <script src="/static/refactored.js"></script> -->
+  <!-- <script src="/static/roman_update.js"></script> -->
 
-    <link rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <link rel="stylesheet" href="/static/app.css">
-    <!-- <link rel="shortcut icon" href="/static/favicon.ico"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="/static/app.css">
+  <!-- <link rel="shortcut icon" href="/static/favicon.ico"> -->
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
-    <nav class="navbar navbar-expand">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a href="/" class="navbar-brand">
-              <img src="/static/images/CryptoCrunchLogo5png.png" alt="logo">
-              <!-- <span>Crypto Crunch</span> -->
-            </a>
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-            {% if request.endpoint != None %}
-            <li>
-              <!-- <form class="navbar-form navbar-right" action="/users">
+  <nav class="navbar navbar-expand">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand">
+          <img src="/static/images/CryptoCrunchLogo5png.png" alt="logo">
+          <!-- <span>Crypto Crunch</span> -->
+        </a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        {% if request.endpoint != None %}
+        <li>
+          <!-- <form class="navbar-form navbar-right" action="/users">
                 <input name="q" class="form-control" placeholder="Search Crypto Crunch" id="search">
                 <button class="btn btn-default">
                   <span class="fa fa-search"></span>
                 </button>
               </form> -->
-              <!-- <button id="refresh-button" class="btn btn-primary" onclick="updateDatabase()">Mode</button> -->
-            </li>
-            {% endif %}
-            {% if not g.user %}
-            <li><a href="/signup">Sign up</a></li>
-            <li><a href="/login">Log in</a></li>
-            {% else %}
-            
-            <li>
-              <li><a href="/">home</a></li>
-              <a href="/users/{{ g.user.id }}">{{g.user.username}}
-                <!-- <img src="{{ g.user.image_url }}" alt="{{ g.user.username }}"> -->
-              </a>
-            </li>
-            <li><a href="/logout">Log out</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </nav>
-      <div class="container">
-        {% for category, message in get_flashed_messages(with_categories=True) %}
-        <div class="alert alert-{{ category }}">{{ message }}</div>
-        {% endfor %}
-      
-        {% block content %}
-        {% endblock %}
-      
-      </div>
-{% if g.user %}
-<script>
-  var user_id = g.user.id
-</script>
-{% endif %}
-</body>
-</html>
+          <!-- <button id="refresh-button" class="btn btn-primary" onclick="updateDatabase()">Mode</button> -->
+        </li>
+        {% endif %}
+        {% if not g.user %}
+        <li><a href="/signup">Sign up</a></li>
+        <li><a href="/login">Log in</a></li>
+        {% else %}
 
+        <li>
+        <li><a href="/">home</a></li>
+        <a href="/users/{{ g.user.id }}">favorites
+          <!-- <a href="/users/{{ g.user.id }}">{{g.user.username}} -->
+          <!-- <img src="{{ g.user.image_url }}" alt="{{ g.user.username }}"> -->
+        </a>
+        </li>
+        <li><a href="/logout">Log out</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+    <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+
+    {% block content %}
+    {% endblock %}
+
+  </div>
+  {% if g.user %}
+  <script>
+    var user_id = {{ g.user.id }}
+  </script>
+  {% endif %}
+</body>
+
+</html>
