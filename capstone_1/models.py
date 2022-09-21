@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 bcrypt = Bcrypt()
 db = SQLAlchemy()
 
+
 def connect_db(app):
 
     db.app = app
@@ -16,18 +17,18 @@ class Favorites(db.Model):
 
     __tablename__ = "favorites"
 
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
 
     user_id = db.Column(db.Integer,
-        db.ForeignKey('users.id', ondelete='CASCADE'),
-        nullable = False,
-        )
-    
+                        db.ForeignKey('users.id', ondelete='CASCADE'),
+                        nullable=False,
+                        )
+
     crypto_id = db.Column(
         db.Integer,
         db.ForeignKey('cryptos.id', ondelete='CASCADE'),
-        nullable = False,
-        )
+        nullable=False,
+    )
 
     def serialize(self):
         return {
@@ -37,15 +38,14 @@ class Favorites(db.Model):
         }
 
 
-
 class User(db.Model):
 
     __tablename__ = "users"
 
-    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    name = db.Column(db.String(50), nullable = False)
-    username = db.Column(db.String(50), nullable = False)
-    password = db.Column(db.Text, nullable = False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(50), nullable=False)
+    username = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.Text, nullable=False)
 
     # favorites = db.relationship(
     #     "User",
@@ -61,21 +61,19 @@ class User(db.Model):
             'username': self.username,
         }
 
-
-
     @classmethod
     def signup(cls, name, username, password):
         """Sign up user
-        
+
         Hashe password and add user to system
         """
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
 
         user = User(
-            name = name,
-            username = username,
-            password = hashed_pwd
+            name=name,
+            username=username,
+            password=hashed_pwd
         )
 
         db.session.add(user)
@@ -85,7 +83,7 @@ class User(db.Model):
     def authenticate(cls, username, password):
         """ Find user with 'username' and 'password'.
         Class method which searches for a user whose password hash matches this password and if it finds such as user returns that user object.
-        
+
         If a matching user cant be found or the password is wrong it returns False.
         """
 
@@ -99,13 +97,12 @@ class User(db.Model):
         return False
 
 
-
 class Crypto(db.Model):
 
     __tablename__ = "cryptos"
 
-    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    crypto_name = db.Column(db.String(50), nullable = False, unique = True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    crypto_name = db.Column(db.String(50), nullable=False, unique=True)
     price = db.Column(db.Text)
     percent = db.Column(db.Float)
     marketcap = db.Column(db.Text)
@@ -118,7 +115,6 @@ class Crypto(db.Model):
             'percent': self.percent,
             'marketcap': self.marketcap
         }
-
 
 
 # INSERT INTO cryptos (crypto_name) Values
@@ -137,8 +133,6 @@ class Crypto(db.Model):
 # (1,1),
 # (1,2),
 # (1,9);
-
-
 
 
 # SELECT name, crypto_name
