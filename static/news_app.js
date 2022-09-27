@@ -20,7 +20,7 @@ async function showNewsHTML() {
 	const response = await getNews();
 	let news = response.data.Data;
 
-	for (let x = 0; x < 5; x++) {
+	for (let x = 0; x < 7; x++) {
 		let newStory = generateHTML(news[x]);
 		$('#news-section').append(newStory);
 	}

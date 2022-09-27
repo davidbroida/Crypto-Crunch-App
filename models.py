@@ -30,12 +30,6 @@ class Favorites(db.Model):
         nullable=False,
     )
 
-    # crypto_name = db.Column(
-    #     db.String(6),
-    #     db.ForeignKey('cryptos.crypto_name', ondelete='CASCADE'),
-    #     nullable=False,
-    # )
-
     def serialize(self):
         return {
             'id': self.id,

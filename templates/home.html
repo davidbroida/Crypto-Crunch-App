@@ -2,64 +2,42 @@
 {% block content %}
 
 <div class="main-header">
-  <img class="main-logo" src="/static/images/CryptoCrunchLogo4png.png" alt="">
-  <!-- 
-  <br>
-  <p>Cryptocurrency App</p> -->
+  <img class="main-logo" src="/static/images/cryptoCrunch_new_logo2.png" alt="">
+
 </div>
 
 <br>
 
-
-
 <div class="main-table">
-  <div>
-    <table class="table table-dark table-striped thead-dark table-hover">
-      <thead>
-        <tr id="header-table">
-          <th>Name</th>
-          <th>Price</th>
-          <th>24hr %</th>
-          <th>Market Cap</th>
-          <th>Favorite</th>
-        </tr>
-      </thead>
-      <tbody id="price-list">
+  <table class="table table-dark table-striped thead-dark table-hover">
+    <thead>
+      <tr id="header-table">
+        <th>Name</th>
+        <th>Price</th>
+        <th>% Change</th>
+        <th>Mkt. Cap</th>
+        <th>Favorite</th>
+      </tr>
+    </thead>
+    <tbody id="price-list">
 
-        <!-- {% for crypto in cryptos %}
-
-        <tr class="{{crypto.id}}">
-          <td class="clickable-field" onclick="selectCrypto(event)">{{crypto.crypto_name}}</td>
-          <td class="clickable-field" onclick="selectCrypto(event)">{{crypto.price}}</td>
-          <td class="clickable-field" onclick="selectCrypto(event)">{{crypto.percent}}</td>
-          <td class="clickable-field" onclick="selectCrypto(event)">{{crypto.marketcap}}</td>
-          {% for favorite in favorites %}
-          {% if favorite.crypto_id == crypto.id %}
-          <td class="fas fa-star clickable-field" onclick="selectStar(event)"></td>
-          {% else %}
-          <td class="far fa-star clickable-field" onclick="selectStar(event)"></td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-        {% endfor %} -->
-      </tbody>
-    </table>
-  </div>
+    </tbody>
+  </table>
 </div>
 
 <div id="btc-chart">
-  <h3 class="chart-title"><span style="color:green"> Live</span> Bitcoin Price Chart</h3>
-  <canvas id="myBitcoinChart"></canvas>
+  <h3 class="chart-title"><span style="color:rgb(1, 187, 91)"> Live</span> Bitcoin Price Chart</h3>
+  <div id="myBitcoinChart"></div>
 </div>
 
 <div class="news-container">
   <br>
-  <h3> Latest News</h3>
+  <h3 id="lastest-news"> Latest News</h3>
   <div id="news-section"></div>
 </div>
 
-
 <script>
+
   window.addEventListener('load', (event) => {
     console.log('page is fully loaded');
     updateDatabase();
@@ -69,105 +47,66 @@
 
 <script>
 
-  getData();
-
   async function getData() {
-    const response = await fetch('https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=182')
+    const response = await fetch('https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=90')
     console.log(response);
     const data = await response.json();
-    console.log(data);
 
-    length = data.Data.Data.length;
-    console.log(length);
+    let arr = data.Data.Data;
+    let seriesData = []
 
-    labels = [];
-    values = [];
-
-    for (days = 182; days >= 0; days--) {
-      labels.push(days)
+    for (let x = 0; x < arr.length; x++) {
+      let unixTimestamp = arr[x].time;
+      let timeStamp = new Date(unixTimestamp * 1000);
+      let date = timeStamp.toLocaleDateString('en-US');
+      seriesData.push([date, arr[x].open, arr[x].high, arr[x].low, arr[x].close])
     }
 
-    for (i = 0; i < length; i++) {
-      // console.log(data.Data.Data[i].time);
-      // labels.push(data.Data.Data[i].time);
-      values.push(data.Data.Data[i].close)
-    }
+    var options = {
+      series: [{
 
-    new Chart(document.getElementById("myBitcoinChart"), {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Bitcoin Price in $USD',
-            backgroundColor: 'rgb(252, 186, 3)',
-            borderColor: 'rgb(252, 186, 3)',
-            data: values
-          }
-        ]
+        data: seriesData
+
+      }],
+      chart: {
+        type: 'candlestick',
+        height: 350,
+        width: '100%'
       },
-      options: {
-        legend: { display: false },
-        title: {
-          display: true,
-          text: 'Bitcoin Price Chart 2022'
+      title: {
+        text: '$BTC',
+        align: 'left',
+        style: {
+          color: 'white'
+        },
+      },
+      xaxis: {
+        type: 'datetime',
+        labels: {
+          style: {
+            colors: '#fff'
+          },
         }
-      }
-    });
+      },
+      yaxis: {
+        labels: {
+          style: {
+            colors: '#fff'
+          },
+        },
+        tooltip: {
+          enabled: true
+        },
+      },
+
+    };
+
+    var chart = new ApexCharts(document.querySelector("#myBitcoinChart"), options);
+    chart.render();
+
   }
 
-
-
-</script>
-
-
-
-
-
-
-<script>
-
-
-  // getData();
-
-  // async function getData() {
-  //   const response = await fetch('https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=99')
-  //   console.log(response);
-  //   const data = await response.json();
-
-  //   let arr = data.Data.Data;
-  //   let seriesData = []
-
-  //   for (let x = 0; x < arr.length; x++) {
-  //     seriesData.push([arr[x].time, arr[x].open, arr[x].high, arr[x].low, arr[x].close])
-  //   }
-
-  //   console.log(seriesData)
-
-  //   var options = {
-  //     series: [{
-
-  //       data: seriesData
-
-  //     }],
-  //     chart: {
-  //       type: 'candlestick',
-  //       height: 350
-  //     },
-  //     title: {
-  //       text: 'CandleStick Chart',
-  //       align: 'left'
-  //     },
-  //     xaxis: {
-  //       type: 'datetime',
-  //     },
-  //   };
-  // }
-
-
-
-  // var chart = new ApexCharts(document.getElementById("myBitcoinChart"), options);
-  // chart.render();
+  getData();
 
 </script>
 

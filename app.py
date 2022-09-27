@@ -13,13 +13,15 @@ app = Flask(__name__)
 
 # Get DB_URI from environ variable (useful for production/testing) or,
 # if not set there, use development local db.
-app.config['SQLALCHEMY_DATABASE_URI'] = (
-    os.environ.get('DATABASE_URL', 'postgresql:///capstone_1_db'))
+# app.config['SQLALCHEMY_DATABASE_URI'] = (
+#     os.environ.get('DATABASE_URL', 'postgresql:///capstone_1_db'))
 
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL', 'postgresql:///flask-heroku')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "nevertell")
 toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
@@ -84,7 +86,7 @@ def login():
 
         if user:
             do_login(user)
-            flash(f"Welcome back, {user.name}!", "success")
+            # flash(f"Welcome back, {user.name}!", "success")
 
             return redirect("/")
         flash("Invalid credentials.", "danger")
@@ -174,10 +176,9 @@ def add_favorite(user_id):
 def delete_favorite(crypto_id):
 
     favorite = Favorites.query.filter(Favorites.crypto_id == crypto_id).first()
-    # favorite = Favorites.query.get_or_404(crypto_id)
     db.session.delete(favorite)
     db.session.commit()
-    flash('Removed from favorites.', 'danger')
+    # flash('Removed from favorites.', 'danger')
     return jsonify(message="deleted")
 
 
@@ -186,11 +187,6 @@ def delete_favorite(crypto_id):
 
 @app.route('/api/cryptos', methods=['POST'])
 def add_crypto():
-
-    # crypto = Crypto.query.get_or_404(crypto_name= request.json['crypto_name'])
-    # if crypto:
-    #     response_json = jsonify(crypto= crypto.serialize())
-    #     return(response_json, 201)
 
     new_crypto = Crypto(crypto_name=request.json['crypto_name'],
                         price=request.json['price'],
@@ -207,27 +203,4 @@ def add_crypto():
 @app.route('/info/<symbol>/<price>/<percent>/<mc>')
 def details_page(symbol, price, percent, mc):
 
-    # return render_template ("users/info.html", symbol = symbol, price =price,percent =percent,mc = mc)
     return render_template('users/info.html', symbol=symbol, price=price, percent=percent, mc=mc)
-
-
-# @app.route('/api/favorites/<int:id>', methods=["PATCH"])
-# def update_favorite(id):
-#     favorite = Favorites.query.get_or_404(id)
-#     favorite.user_id = request.json.get('user_id', favorite.user_id)
-#     favorite.crypto_id = request.json.get('cryto_id', favorite.cryptos_id)
-#     db.session.commit()
-#     return jsonify(favorite=favorite.serialize())
-
-# @app.route('/api/favorites/<int:id>', methods=["DELETE"])
-# def delete_favorite(id):
-#     favorite = Favorites.query.get_or_404(id)
-#     db.session.delete(favorite)
-#     db.session.commit()
-#     return jsonify(message="deleted")
-
-
-# @app.route('/api/favorites/<int:id>')
-# def get_favorite(id):
-#     favorite = Favorites.query.get_or_404(id)
-#     return jsonify(favorite= favorite.serialize())

@@ -28,13 +28,6 @@ async function showHomeHTML() {
 		}
 	}
 
-	// function getId(symbol) {
-	// 	return cryptoIds.filter((val) => {
-	// 		val.crypto_name === symbol;
-	// 		return val.id
-	// 	})
-	// }
-
 	console.log('answer:', favoriteList);
 	console.log("favoriteIds:", favoriteIds);
 	console.log("cryptoIds:", cryptoIds);
@@ -89,25 +82,16 @@ async function showHomeHTML() {
 }
 showHomeHTML();
 
-// function favoritesToDetails(id){
-
-// }
-
 function viewDetails(crypto) {
-	// window.location.href = `/info/${crypto[0]}/`;
+
+	console.log('THIS:', crypto);
 
 	window.location.href = `/info/${crypto[0]}/
 								${crypto[1].USD.PRICE}/
 								${crypto[1].USD.CHANGEPCTDAY}/
 								${crypto[1].USD.MKTCAP}
 								`;
-	// console.log(crypto[1].USD);
-	getInfo(crypto[0]);
 }
-
-// far fa-star = blank
-// fas fa-star = yellow
-// let favorited = localStorage.getItem("favorited")
 
 async function toggleFavorite(crypto, targetCell) {
 	const dbCryptos = await axios.get(`${BASE_URL}/cryptos`);
@@ -143,7 +127,6 @@ async function addFavorite(crypto) {
 			postFavorite(array[x].id);
 		}
 	}
-	// window.location.href = `/users/${user_id}`;
 	window.location.href = `/`;
 }
 
@@ -156,8 +139,7 @@ async function getCryptos(correct_id) {
 	console.log(id);
 
 	for (let x = 0; x < array.length; x++) {
-		// console.log(array[x].id);
-		// console.log(array[x].crypto_name);
+
 		if (array[x].id == id) {
 			let name = array[x].crypto_name;
 			let mc = array[x].marketcap;
@@ -214,30 +196,16 @@ async function deleteFavorite(id) {
 
 async function isFavorite(crypto) {
 	let symbol = crypto;
-	// console.log(symbol);
 
 	let cryptosRes = await axios.get(`${BASE_URL}/cryptos`);
 	let array = cryptosRes.data.cryptos;
-	// console.log(array);
 
 	for (x = 0; x < array.length; x++) {
 		if (array[x].crypto_name === symbol) {
-			// console.log(array[x].id);
 			checkFavorite(array[x].id);
 		}
 	}
 }
-
-// async function checkFavorite(id) {
-// 	const res = await axios.get(`${BASE_URL}/favorites`);
-// 	let array = res.data.favorites;
-
-// 	for (let x = 0; x < array.length; x++) {
-// 		if (array[x].crypto_id === id) {
-// 			return true;
-// 		} else return false;
-// 	}
-// }
 
 // ############# Update Cryptos Table In DataBase ##########################
 

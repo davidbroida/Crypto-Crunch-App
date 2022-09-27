@@ -10,21 +10,19 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://unpkg.com/jquery"></script>
-  <!-- <script src="https://unpkg.com/popper"></script> -->
   <script src="https://unpkg.com/bootstrap"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
-
   <script src="/static/app.js"></script>
   <script src="/static/news_app.js"></script>
-  <!-- <script src="/static/refactored.js"></script> -->
-  <!-- <script src="/static/roman_update.js"></script> -->
 
+  <link rel="preload" href="NasalizationRg-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="GameOfSquids.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="BatmanForeverAlternate.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
   <link rel="stylesheet" href="/static/app.css">
-  <!-- <link rel="shortcut icon" href="/static/favicon.ico"> -->
+
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
@@ -32,22 +30,12 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <a href="/" class="navbar-brand">
-          <img src="/static/images/CryptoCrunchLogo5png.png" alt="logo">
-          <!-- <span>Crypto Crunch</span> -->
+          <img src="/static/images/cryptoCrunch_new_logo2.png" alt="logo">
+
         </a>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        {% if request.endpoint != None %}
-        <li>
-          <!-- <form class="navbar-form navbar-right" action="/users">
-                <input name="q" class="form-control" placeholder="Search Crypto Crunch" id="search">
-                <button class="btn btn-default">
-                  <span class="fa fa-search"></span>
-                </button>
-              </form> -->
-          <!-- <button id="refresh-button" class="btn btn-primary" onclick="updateDatabase()">Mode</button> -->
-        </li>
-        {% endif %}
+
         {% if not g.user %}
         <li><a href="/signup">Sign up</a></li>
         <li><a href="/login">Log in</a></li>
@@ -56,11 +44,10 @@
         <li>
         <li><a href="/">home</a></li>
         <a href="/users/{{ g.user.id }}">favorites
-          <!-- <a href="/users/{{ g.user.id }}">{{g.user.username}} -->
-          <!-- <img src="{{ g.user.image_url }}" alt="{{ g.user.username }}"> -->
+
         </a>
         </li>
-        <li><a href="/logout">Log out</a></li>
+        <li><a href="/logout">Logout</a></li>
         {% endif %}
       </ul>
     </div>

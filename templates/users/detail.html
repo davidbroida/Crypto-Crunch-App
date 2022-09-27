@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="home-hero">
-    <h1>{{user.name}}'s Favorites</h1>
+<div class="home-hero" style="color: white">
+    <h1>{{user.username}}'s favorites</h1>
     <br>
 </div>
 
@@ -39,13 +39,6 @@
 <br>
 <script>
 
-    function selectStar(event) {
-        let targetStar = event.target
-        let correct_row = targetStar.closest('tr')
-        let correct_id = correct_row.className
-        deleteFavorite(correct_id)
-    }
-
     function selectCrypto(event) {
         let targetTd = event.target
         let correct_row = targetTd.closest('tr')
@@ -53,6 +46,12 @@
         getCryptos(correct_id)
     }
 
+    function selectStar(event) {
+        let targetStar = event.target
+        let correct_row = targetStar.closest('tr')
+        let correct_id = correct_row.className
+        deleteFavorite(correct_id)
+    }
 
 </script>
 
