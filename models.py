@@ -1,5 +1,4 @@
 from optparse import Values
-# from secrets import token_urlsafe
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
@@ -115,29 +114,3 @@ class Crypto(db.Model):
             'percent': self.percent,
             'marketcap': self.marketcap
         }
-
-
-# INSERT INTO cryptos (crypto_name) Values
-# ('BTC'),
-# ('ETH'),
-# ('BNB'),
-# ('ADA'),
-# ('SOL'),
-# ('XRP'),
-# ('LUNA'),
-# ('DOT'),
-# ('DOGE'),
-# ('AVAX');
-
-# INSERT INTO favorites (user_id,crypto_id) Values
-# (1,1),
-# (1,2),
-# (1,9);
-
-
-# SELECT name, crypto_name
-# FROM users
-# JOIN Favorites
-# ON favorites.user_id = users.id
-# JOIN cryptos
-# ON favorites.crypto_id = cryptos.id;
