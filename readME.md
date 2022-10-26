@@ -24,6 +24,10 @@ $ ipython3
 
 $ %run app.py
 
+Create the database
+
+$ db.create_all()
+
 $ quit 
 
 $ flask run

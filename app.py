@@ -1,6 +1,5 @@
 
 import os
-import re
 
 from flask import Flask, render_template, request, flash, redirect, session, g, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
@@ -15,11 +14,9 @@ app = Flask(__name__)
 
 # Get DB_URI from environ variable (useful for production/testing) or,
 # if not set there, use development local db.
-# uri = os.environ.get('DATABASE_URL', 'postgresql:///capstone_1_db')
 
-uri = uri.replace("postgres://", "postgresql://", 1)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = uri
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+    os.environ.get('DATABASE_URL', 'postgresql:///capstone_1_db'))
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
@@ -29,9 +26,9 @@ toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
 
-
 ##############################################################################
 # User signup/login/logout
+
 
 @app.before_request
 def add_user_to_g():
