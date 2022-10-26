@@ -129,7 +129,8 @@ async function addFavorite(crypto) {
 async function getCryptos(correct_id) {
 	let id = correct_id;
 
-	const res = await axios.get('http://localhost:5000/api/cryptos');
+	// const res = await axios.get('http://localhost:5000/api/cryptos');
+	const res = await axios.get('postgres://oqnqrnrwlqgmpn:c4d882dae4d55862315396e4e6edb18794936595ea8598173e126e7199660c2a@ec2-52-86-115-245.compute-1.amazonaws.com:5432/d3cqh84h8oub6o/api/cryptos');
 	let array = res.data.cryptos;
 
 	for (let x = 0; x < array.length; x++) {
