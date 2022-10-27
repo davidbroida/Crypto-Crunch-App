@@ -7,9 +7,6 @@ from models import db, connect_db, User, Favorites, Crypto
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-
 
 CURR_USER_KEY = "curr_user"
 
@@ -21,13 +18,8 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = (
 #     os.environ.get('DATABASE_URL', 'postgresql:///capstone_1_db'))
 
-engine = "postgresql://oqnqrnrwlqgmpn:c4d882dae4d55862315396e4e6edb18794936595ea8598173e126e7199660c2a@ec2-52-86-115-245.compute-1.amazonaws.com:5432/d3cqh84h8oub6o"
-db = scoped_session(sessionmaker(bind=engine))
-db.execute("INSERT INTO books VALUES (1, 1, 1, 1)")
-db.commit()
-
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-#     'DATABASE_URL', 'postgresql://oqnqrnrwlqgmpn:c4d882dae4d55862315396e4e6edb18794936595ea8598173e126e7199660c2a@ec2-52-86-115-245.compute-1.amazonaws.com:5432/d3cqh84h8oub6o')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL', 'postgresql://oqnqrnrwlqgmpn:c4d882dae4d55862315396e4e6edb18794936595ea8598173e126e7199660c2a@ec2-52-86-115-245.compute-1.amazonaws.com:5432/d3cqh84h8oub6o')
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'nevertell')
 
@@ -37,7 +29,7 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
 # app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 toolbar = DebugToolbarExtension(app)
 
-# connect_db(app)
+connect_db(app)
 
 ##############################################################################
 # User signup/login/logout
