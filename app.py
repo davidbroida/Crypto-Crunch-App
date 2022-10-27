@@ -6,6 +6,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Favorites, Crypto
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm
+from flask_sqlalchemy import SQLAlchemy
 
 
 CURR_USER_KEY = "curr_user"
@@ -29,7 +30,8 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
 # app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 toolbar = DebugToolbarExtension(app)
 
-connect_db(app)
+# connect_db(app)
+db = SQLAlchemy(app)
 
 ##############################################################################
 # User signup/login/logout
