@@ -19,7 +19,7 @@ app = Flask(__name__)
 #     os.environ.get('DATABASE_URL', 'postgresql:///capstone_1_db'))
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    'DATABASE_URL', 'postgresql://oqnqrnrwlqgmpn:c4d882dae4d55862315396e4e6edb18794936595ea8598173e126e7199660c2a@ec2-52-86-115-245.compute-1.amazonaws.com:5432/d3cqh84h8oub6o')
+    'DATABASE_URL', 'postgresql:///flask-heroku')
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'nevertell')
 
