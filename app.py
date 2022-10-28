@@ -28,10 +28,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'nevertell')
 
-engine = create_engine(
-    'postgresql: // oqnqrnrwlqgmpn: c4d882dae4d55862315396e4e6edb18794936595ea8598173e126e7199660c2a@ec2-52-86-115-245.compute-1.amazonaws.com: 5432/d3cqh84h8oub6o', echo=False)
-
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
