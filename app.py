@@ -1,6 +1,6 @@
 
 import os
-import re
+import psycopg2
 
 from flask import Flask, render_template, request, flash, redirect, session, g, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
@@ -8,11 +8,13 @@ from models import db, connect_db, User, Favorites, Crypto
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
 
 
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
+
 
 # Get DB_URI from environ variable (useful for production/testing) or,
 # if not set there, use development local db.
@@ -22,9 +24,13 @@ if uri.startswith("postgres://"):
 # rest of connection code using the connection string `uri`
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    'DATABASE_URL', 'postgresql+psycopg2://oqnqrnrwlqgmpn:c4d882dae4d55862315396e4e6edb18794936595ea8598173e126e7199660c2a@ec2-52-86-115-245.compute-1.amazonaws.com:5432/d3cqh84h8oub6o')
+    'DATABASE_URL', 'postgresql://oqnqrnrwlqgmpn:c4d882dae4d55862315396e4e6edb18794936595ea8598173e126e7199660c2a@ec2-52-86-115-245.compute-1.amazonaws.com:5432/d3cqh84h8oub6o')
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'nevertell')
+
+engine = create_engine(
+    'postgresql: // oqnqrnrwlqgmpn: c4d882dae4d55862315396e4e6edb18794936595ea8598173e126e7199660c2a@ec2-52-86-115-245.compute-1.amazonaws.com: 5432/d3cqh84h8oub6o', echo=False)
+
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
@@ -32,7 +38,8 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
 # app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 toolbar = DebugToolbarExtension(app)
 
-connect_db(app)
+# connect_db(app)
+db = SQLAlchemy(app)
 
 ##############################################################################
 # User signup/login/logout
