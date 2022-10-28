@@ -18,16 +18,10 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///capstone_1_db'))
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-#     'DATABASE_URL', 'postgresql:///crypto-crunch')
-
-# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'nevertell')
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///crypto-crunch'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "nevertell")
+app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "nevertell")
 toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
