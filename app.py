@@ -3,10 +3,10 @@
 from flask import Flask, render_template, request, flash, redirect, session, g, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Favorites, Crypto
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm
 import os
-import re
 
 
 CURR_USER_KEY = "curr_user"
@@ -30,6 +30,8 @@ connect_db(app)
 
 ##############################################################################
 # User signup/login/logout
+
+db = SQLAlchemy()
 
 
 @app.before_request
