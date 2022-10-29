@@ -1,4 +1,4 @@
-const BASE_URL = 'postgres://zwmjwzvorpgvjb:6ba7262eca88075042223d650543f94962968ba8bfb6d6a88bf232a91c57f5bc@ec2-54-160-200-167.compute-1.amazonaws.com:5432/d4g5nalsb97atb';
+const BASE_URL = 'http://postgres://zwmjwzvorpgvjb:6ba7262eca88075042223d650543f94962968ba8bfb6d6a88bf232a91c57f5bc@ec2-54-160-200-167.compute-1.amazonaws.com:5432/d4g5nalsb97atb';
 
 const $star = $('fas fa-star');
 
@@ -128,7 +128,7 @@ async function addFavorite(crypto) {
 async function getCryptos(correct_id) {
 	let id = correct_id;
 
-	const res = await axios.get('postgres://zwmjwzvorpgvjb:6ba7262eca88075042223d650543f94962968ba8bfb6d6a88bf232a91c57f5bc@ec2-54-160-200-167.compute-1.amazonaws.com:5432/d4g5nalsb97atb/cryptos');
+	const res = await axios.get('http://postgres://zwmjwzvorpgvjb:6ba7262eca88075042223d650543f94962968ba8bfb6d6a88bf232a91c57f5bc@ec2-54-160-200-167.compute-1.amazonaws.com:5432/d4g5nalsb97atbcryptos');
 	let array = res.data.cryptos;
 
 	for (let x = 0; x < array.length; x++) {

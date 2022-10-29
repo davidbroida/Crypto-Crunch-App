@@ -1,4 +1,4 @@
-const BASE_URL = 'postgres://zwmjwzvorpgvjb:6ba7262eca88075042223d650543f94962968ba8bfb6d6a88bf232a91c57f5bc@ec2-54-160-200-167.compute-1.amazonaws.com:5432/d4g5nalsb97atb';
+const BASE_URL = 'http://localhost:5000/api';
 
 class Favorite {
 	constructor({ favoriteId, userId, cryptoId }) {
