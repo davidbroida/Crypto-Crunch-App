@@ -8,10 +8,6 @@ from forms import UserAddForm, LoginForm
 import os
 import re
 
-uri = os.getenv("DATABASE_URL")  # or other relevant config var
-if uri and uri.startswith("postgres://"):
-    uri = uri.replace("postgres://", "postgresql://", 1)
-# rest of connection code using the connection string `uri`
 
 CURR_USER_KEY = "curr_user"
 
