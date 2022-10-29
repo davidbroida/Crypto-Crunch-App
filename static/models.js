@@ -1,4 +1,4 @@
-const BASE_URL = 'postgresql://eucwusdqkubhsn:1f86298ed9b2fb93d469e3219c0bdf6c11258d6f38c9637140add3c03a7bbd0c@ec2-44-209-158-64.compute-1.amazonaws.com:5432/dab9n8cmmpdbv6/api';
+const BASE_URL = 'postgres://zwmjwzvorpgvjb:6ba7262eca88075042223d650543f94962968ba8bfb6d6a88bf232a91c57f5bc@ec2-54-160-200-167.compute-1.amazonaws.com:5432/d4g5nalsb97atb/api';
 
 class Favorite {
 	constructor({ favoriteId, userId, cryptoId }) {
