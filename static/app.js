@@ -1,5 +1,7 @@
 const BASE_URL = 'http://localhost:5000/api';
 
+// const BASE_URL = 'postgresql://bgsqezwevwkfde:cea636a3441094a66d7e15bdad100e38c81cb92e7c208f856dc4c56038bea46a@ec2-44-208-236-253.compute-1.amazonaws.com:5432/d2aaihl67gif0h';
+
 const $star = $('fas fa-star');
 
 async function getPriceBTC() {
@@ -128,7 +130,7 @@ async function addFavorite(crypto) {
 async function getCryptos(correct_id) {
 	let id = correct_id;
 
-	const res = await axios.get('http://localhost:5000/api/cryptos');
+	const res = await axios.get('http://postgres://zwmjwzvorpgvjb:6ba7262eca88075042223d650543f94962968ba8bfb6d6a88bf232a91c57f5bc@ec2-54-160-200-167.compute-1.amazonaws.com:5432/d4g5nalsb97atbcryptos');
 	let array = res.data.cryptos;
 
 	for (let x = 0; x < array.length; x++) {
