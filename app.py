@@ -22,8 +22,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///capstone_1_db'))
 
-SQLALCHEMY_DATABASE_URI = os.environ.get(
-    'DATABASE_URL').replace("://", "ql://", 1)
+# SQLALCHEMY_DATABASE_URI = os.environ.get(
+#     'DATABASE_URL').replace("://", "ql://", 1)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
