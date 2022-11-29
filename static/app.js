@@ -13,9 +13,13 @@ async function getPriceBTC() {
 
 async function showHomeHTML() {
 	const btcData = await getPriceBTC();
+	console.log("API DATA", btcData);
+
 	const favorites = await axios.get(`${BASE_URL}/favorites`);
 	const dbCryptos = await axios.get(`${BASE_URL}/cryptos`);
 	const cryptos = Object.entries(btcData.data.DISPLAY);
+	console.log('CRYPTOS:', cryptos);
+
 	let cryptoIds = dbCryptos.data.cryptos;
 	let favoritesArray = favorites.data.favorites;
 
@@ -33,7 +37,6 @@ async function showHomeHTML() {
 	const list = document.getElementById('price-list');
 	const listTop = document.createElement('tr');
 	listTop.setAttribute('id', 'top-row');
-	console.log(cryptos);
 
 	cryptos.forEach((crypto) => {
 		const row = document.createElement('tr');
