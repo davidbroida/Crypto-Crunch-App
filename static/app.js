@@ -1,6 +1,6 @@
-const BASE_URL = 'http://localhost:5000/api';
+// const BASE_URL = 'http://localhost:5000/api';
 
-// const BASE_URL = 'postgres://bgsqezwevwkfde:cea636a3441094a66d7e15bdad100e38c81cb92e7c208f856dc4c56038bea46a@ec2-44-208-236-253.compute-1.amazonaws.com:5432/d2aaihl67gif0h/api';
+const BASE_URL = 'postgres://bgsqezwevwkfde:cea636a3441094a66d7e15bdad100e38c81cb92e7c208f856dc4c56038bea46a@ec2-44-208-236-253.compute-1.amazonaws.com:5432/d2aaihl67gif0h';
 
 // const BASE_URL = app.config['SQLALCHEMY_DATABASE_URI'] = (
 // 	os.environ.get('DATABASE_URL', 'postgresql:///capstone_1_db'))
