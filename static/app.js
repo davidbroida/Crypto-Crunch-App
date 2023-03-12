@@ -1,6 +1,6 @@
 // const BASE_URL = 'http://localhost:5000/api';
 
-const BASE_URL = 'postgres://bgsqezwevwkfde:cea636a3441094a66d7e15bdad100e38c81cb92e7c208f856dc4c56038bea46a@ec2-44-208-236-253.compute-1.amazonaws.com:5432/d2aaihl67gif0h';
+const BASE_URL = 'postgresql://bgsqezwevwkfde:cea636a3441094a66d7e15bdad100e38c81cb92e7c208f856dc4c56038bea46a@ec2-44-208-236-253.compute-1.amazonaws.com:5432/d2aaihl67gif0h';
 
 // const BASE_URL = 'postgresql+psycopg2://xqskebhxjwccxt:f50358ebe1b67b3879188b4aa5d279011d15d6d015e74a35d15f2764e312ca11@ec2-44-206-11-200.compute-1.amazonaws.com:5432/d6nrgjr7l5n2na';
 
