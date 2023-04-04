@@ -305,6 +305,14 @@ nav.navbar.navbar-expand {
 	padding: 12px;
 }
 
+.login-container {
+	margin-top: 12.5%;
+}
+
+.signup-container {
+	margin-top: 7.5%;
+}
+
 /* ====================== Main Page */
 
 .fas {
