@@ -224,6 +224,12 @@ nav.navbar.navbar-expand {
 
 /* ====================== Home pages */
 
+.main-table {
+	table-layout: fixed;
+}
+
+
+
 
 .main-table h1 {
 	margin-top: 0;
@@ -296,7 +302,6 @@ nav.navbar.navbar-expand {
 
 
 
-
 /* ====================== Sign up/Login Pages */
 
 #user_form input.form-control {
@@ -346,6 +351,25 @@ nav.navbar.navbar-expand {
 	background-size: cover;
 	text-align: center;
 	text-shadow: 0 0 8px #66757f;
+}
+
+@media screen and (max-width:600px) {
+	.main-table {
+		width: 100%;
+		font-size: 7px;
+	}
+
+	#header-table th {
+		width: 100%;
+		height: 40px;
+		font-size: medium;
+		font-family: 'Nasalization Rg';
+		background-color: black;
+	}
+
+	.main-table td {
+		width: 50px;
+	}
 }
 
 .favorites-table {
