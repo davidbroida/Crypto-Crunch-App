@@ -12,7 +12,9 @@ async function getPriceBTC() {
 	let response = await axios.get(
 		'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,ADA,SOL,XRP,LUNA,DOT,DOGE,AVAX&tsyms=USD'
 	);
+	console.log('RESPONSE:', response)
 	return response;
+
 }
 
 async function showHomeHTML() {
