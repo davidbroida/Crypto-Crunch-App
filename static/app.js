@@ -1,10 +1,10 @@
-// const BASE_URL = 'http://localhost:5000/api';
+let BASE_URL = 'http://localhost:5000/api';
 
-const BASE_URL = ' postgresql://xqskebhxjwccxt:f50358ebe1b67b3879188b4aa5d279011d15d6d015e74a35d15f2764e312ca11@ec2-44-206-11-200.compute-1.amazonaws.com:5432/d6nrgjr7l5n2na';
+if (process.env.BASE_URL) {
+	BASE_URL = process.env.BASE_URL
+}
 
-// const BASE_URL = app.config['SQLALCHEMY_DATABASE_URI'] = (
-// 	os.environ.get('DATABASE_URL', 'postgresql:///capstone_1_db'))
-
+console.log(BASE_URL)
 
 const $star = $('fas fa-star');
 
