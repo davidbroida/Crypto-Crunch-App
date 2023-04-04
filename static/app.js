@@ -1,8 +1,9 @@
 let BASE_URL = 'http://localhost:5000/api';
+BASE_URL = "https://cryptocrunch2.herokuapp.com/api"
 
-if (process.env.BASE_URL) {
-	BASE_URL = process.env.BASE_URL
-}
+// if (process.env.BASE_URL) {
+// 	BASE_URL = process.env.BASE_URL
+// }
 
 console.log(BASE_URL)
 
